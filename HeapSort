@@ -1,0 +1,58 @@
+// Sort it in ascending order
+// heapify means check whether children are affected or not..
+
+    class Program
+    {
+        static void maxheapify(int n, int i, int[] arr)
+        {
+            int largest = i;
+            int l = 2 * i + 1;
+            int r = 2 * i + 2;
+            if(l<n && arr[l] > arr[largest])
+            {
+                largest = l;
+            }
+            if(r<n && arr[r] > arr[largest])
+            {
+                largest = r;
+            }
+            // check if any subtree is affected..
+            if(largest != i)
+            {
+                // swap elements
+                int temp = arr[largest];
+                arr[largest] = arr[i];
+                arr[i] = temp;
+                maxheapify(n, largest, arr);
+            }
+        }
+
+        static void Main(string[] args)
+        {
+            int[] arr = new int[12] {2,6,1,9,7,8,10, 4, 24, 15, 17, 5};
+            int n = arr.Length;
+            // build max heap first..
+            for(int i = n/2 - 1; i>=0; i--)
+            {
+                maxheapify(n , i , arr);
+            }
+            // display sort array after heapify process(bottom to top)
+            // first take the root node and display it as it will  be the max value then put last children node as root node and heapify it.
+            int j = n - 1;
+            while(j > 0)
+            {
+                // swap root node with last children node.
+                int root = arr[0];
+                arr[0] = arr[j];
+                arr[j] = root;
+                // no of elements or heap size will decrease by 1 everytime..
+                maxheapify(j , 0 ,arr);
+                j--;
+            }
+            foreach(var item in arr)
+            {
+                Console.Write(item + " ");
+            }
+            Console.ReadKey();
+        }
+    }
