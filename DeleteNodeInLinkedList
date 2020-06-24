@@ -8,18 +8,11 @@
  */
 public class Solution {
     public void DeleteNode(ListNode node) {
-        ListNode temp = node;
-        bool flag = true;
-        ListNode prev = node;
-        while(temp.next != null)
-        {
-            temp.val = temp.next.val;
-            prev = temp;
-            temp = temp.next;
-        }
-        prev.next = null;
+        node.val = node.next.val; 
+        node.next = node.next.next;
     }
 }
+
 
 Write a function to delete a node (except the tail) in a singly linked list, given only access to that node.
 
