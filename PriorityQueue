@@ -1,0 +1,112 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Heap_Sort
+{
+    public class PriorityQueue
+    {
+        public class Node
+        {
+            public int price;
+            public int dist;
+            public int stops;
+            public Node(int p, int d, int s)
+            {
+                this.price = p;
+                this.dist = d;
+                this.stops = s;
+            }
+        }
+
+        public void MaxHeapify(int n, int i, List<Node> arr)
+        {
+            int largest = i;
+            int l = 2 * i + 1;
+            int r = 2 * i + 2;
+            if(l<n && arr[largest].price < arr[l].price)
+            {
+                largest = l;
+            }
+            if(r < n && arr[largest].price < arr[r].price)
+            {
+                largest = r;
+            }
+            if(largest != i )
+            {
+                Node demo = arr[largest];
+                arr[largest] = arr[i];
+                arr[i] = demo;
+                MaxHeapify(n , largest , arr);
+            }
+        }
+
+        public void MinHeapify(int n, int i, List<Node> arr)
+        {
+            int lowest = i;
+            int l = 2 * i + 1;
+            int r = 2 * i + 2;
+            if(l<n && arr[lowest].price > arr[l].price)
+            {
+                lowest = l;
+            }
+            if(r<n && arr[lowest].price > arr[r].price)
+            {
+                lowest = r;
+            }
+            if(lowest != i)
+            {
+                Node demo = arr[lowest];
+                arr[lowest] = arr[i];
+                arr[i] = demo;
+                MinHeapify(n , lowest , arr);
+            }
+        }
+
+        public void BuildMaxHeap(int n, List<Node> arr)
+        {
+            for (int i = n / 2 - 1; i >= 0; i--)
+            {
+                MaxHeapify(n, i, arr);
+            }
+        }
+
+        public void BuildMinHeap(int n, List<Node> arr)
+        {
+            for (int i = n / 2 - 1; i >= 0; i--)
+            {
+                MinHeapify(n, i, arr);
+            }
+        }
+
+        public void Enqueue(Node node, int n, List<Node> arr, int priority)
+        {
+            arr.Add(node);
+            if(priority == 0)
+            {
+                BuildMaxHeap(n, arr);
+            }
+            else
+            {
+                BuildMinHeap(n, arr);
+            }
+        }
+
+        public Node Dequeue(Node node, int n, List<Node> arr, int priority)
+        {
+            Node root = arr[0];
+            arr[0] = arr[n-1];
+            if(priority == 0)
+            {
+                MaxHeapify(n-1, 0 , arr);
+            }
+            else
+            {
+                MinHeapify(n-1, 0, arr);
+            }
+            return root;
+        }
+    }
+}
