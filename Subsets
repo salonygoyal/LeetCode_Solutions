@@ -1,0 +1,22 @@
+public class Solution {
+    public IList<IList<int>> Subsets(int[] nums) {
+       IList<IList<int>> final = new List<IList<int>>();
+        IList<int> tmp = new List<int>();
+        final.Add(new List<int>());
+        tmp.Add(nums[0]);
+        final.Add(tmp);
+        for (int i = 1; i < nums.Length; i++)
+        {
+            int n = final.Count - 1;
+            for (int j = 0; j <= n; j++)
+            {
+                IList<int> k = new List<int>(final[j]);
+                k.Add(nums[i]);
+                final.Add(k);
+            }
+        }
+        return final;
+    }
+}
+
+https://leetcode.com/submissions/detail/365255946/?from=/explore/challenge/card/july-leetcoding-challenge/545/week-2-july-8th-july-14th/3387/
