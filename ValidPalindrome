@@ -1,0 +1,46 @@
+public class Solution {
+    public bool IsPalindrome(string s) {
+        string original = "";
+        foreach(char c in s)
+        {
+            int val = (int)c;
+            if ((val >= 48 && val <= 57) || (val >=65 && val <=90) || (val >=97 && val <= 122))
+            {
+                original += c;
+            }
+        }
+        string reverse = "";
+        char[] arr = original.ToLower().ToCharArray();
+        int start = 0;
+        int end = arr.Length - 1;
+        while(start <= end)
+        {
+            if(arr[start] != arr[end])
+            {
+                return false;
+            }
+            start++;
+            end--;
+        }
+        return true;
+    }
+}
+
+
+Given a string, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases.
+
+Note: For the purpose of this problem, we define empty string as valid palindrome.
+
+Example 1:
+
+Input: "A man, a plan, a canal: Panama"
+Output: true
+Example 2:
+
+Input: "race a car"
+Output: false
+ 
+
+Constraints:
+
+s consists only of printable ASCII characters.
